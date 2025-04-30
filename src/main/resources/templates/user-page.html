@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница пользователя</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 46px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center text-white">
+            <h3 class="navbar-brand mb-0 py-0" id="userEmailNav"></h3>
+            <p class="nav-item mb-0 py-0">с ролями: </p>
+            <p class="nav-item mb-0 py-0" id="userRolesNav"></p>
+        </div>
+        <div>
+            <a class="nav-link text-secondary mb-0 py-0" href="/custom-logout">Выйти</a>
+        </div>
+    </div>
+</nav>
+<div class="d-flex">
+    <nav class=" p-3 min-vh-100 bg-white" style="width: 200px;">
+        <ul class="nav flex-column">
+            <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <a th:href="@{/admin}"
+                   class="btn w-100 text-left "
+                   th:classappend="${currentUri == '/admin' ? 'btn-primary font-weight-bold' : 'btn-link'}">
+                    Администратор
+                </a>
+            </li>
+            <li class="nav-item" th:if="${#authorization.expression('hasAnyRole(''ROLE_USER'', ''ROLE_ADMIN'')')}">
+                <a th:href="@{/user}"
+                   class="btn w-100 text-left"
+                   th:classappend="${currentUri == '/user' ? 'btn-primary font-weight-bold' : 'btn-link'}">
+                    Пользователь
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
+            <h1 class="mb-0">Информация о пользователе</h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Возраст</th>
+                <th>Роли</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="userId"></td>
+                <td id="userUsername"></td>
+                <td id="userEmail"></td>
+                <td id="userAge"></td>
+                <td id="userRoles"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/user-panel.js"></script>
+
+</body>
+</html>
