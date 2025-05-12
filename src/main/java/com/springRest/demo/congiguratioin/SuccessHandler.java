@@ -22,14 +22,14 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 
         for (GrantedAuthority authority : authorities) {
             if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                response.sendRedirect("/admin");
+                response.sendRedirect("/admin.html");
                 return;
             }
         }
 
         for (GrantedAuthority authority : authorities) {
             if (authority.getAuthority().equals("ROLE_USER")) {
-                response.sendRedirect("/user");
+                response.sendRedirect("/user.html");
                 return;
             }
         }
